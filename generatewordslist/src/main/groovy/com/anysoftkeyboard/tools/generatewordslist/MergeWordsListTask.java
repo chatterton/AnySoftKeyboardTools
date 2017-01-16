@@ -169,7 +169,7 @@ public class MergeWordsListTask extends DefaultTask {
         public void endElement(String uri, String localName, String qName) throws SAXException {
             super.endElement(uri, localName, qName);
             if (qName.equals("w") && inWord) {
-                WordWithCount wordWithCount = new WordWithCount(word.toString(), freq);
+                WordWithCount wordWithCount = new WordWithCount(word.toString().toLowerCase(), freq);
                 if (allWords.containsKey(wordWithCount.getKey())) {
                     allWords.get(wordWithCount.getKey()).addOtherWord(wordWithCount);
                 } else {
