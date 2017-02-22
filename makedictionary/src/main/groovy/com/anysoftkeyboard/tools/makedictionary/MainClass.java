@@ -18,10 +18,10 @@ package com.anysoftkeyboard.tools.makedictionary;
 
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 public class MainClass {
 
@@ -49,18 +49,15 @@ public class MainClass {
 
         final File outputFolder = new File(resourcesFolder, "raw/");
         final File dict_id_array = new File(resourcesFolder, "values/words_dict_array.xml");
-        
+
         System.out.println("Reading words from input " + inputFile.getAbsolutePath());
-        System.out.println("Will store output files under " + outputFolder.getAbsolutePath());
+        System.out.println("Will store output files under " + outputFolder.getAbsolutePath() + ". Created raw folder? " + outputFolder.mkdirs());
         System.out.println("Deleting previous versions...");
 
         //deleting current files
         tempOutputFile.delete();
-        File[] dictFiles = outputFolder.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".dict");
-            }
+        File[] dictFiles = outputFolder.listFiles((dir, name) -> {
+            return name.endsWith(".dict");
         });
         if (dictFiles != null && dictFiles.length > 0) {
             for (File file : dictFiles) {
